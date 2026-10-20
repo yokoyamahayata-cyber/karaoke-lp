@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>カラオケLP A/Bテスト ダッシュボード</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#1a1f2b;--sub:#5b6476;--bd:#e4e9f1;--win:#06c755;--warn:#e8873a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif;font-weight:500;line-height:1.7}
+.wrap{max-width:860px;margin:0 auto;padding:22px 18px 60px}
+.head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.head h1{font-size:1.3rem;font-weight:900;margin:0}
+.updated{font-size:.8rem;color:var(--sub)}
+.note{font-size:.85rem;color:var(--sub);margin:0 0 20px}
+.banner{background:#fff7ec;border:1px solid #f3dcb8;color:#8a5a1c;border-radius:12px;padding:12px 16px;font-size:.88rem;font-weight:700;margin:0 0 18px}
+.banner.ok{background:#eafaf0;border-color:#bfe8cf;color:#1b7a43}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:620px){.cards{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;position:relative;transition:box-shadow .2s}
+.card.win{border-color:var(--win);box-shadow:0 10px 26px -12px rgba(6,199,85,.5)}
+.crown{position:absolute;top:-12px;right:14px;background:var(--win);color:#fff;font-weight:900;font-size:.74rem;border-radius:999px;padding:4px 12px}
+.pname{display:flex;align-items:center;gap:8px;font-weight:900;font-size:1.02rem;margin-bottom:2px}
+.dot{width:12px;height:12px;border-radius:50%}
+.psub{font-size:.78rem;color:var(--sub);margin-bottom:14px}
+.ctr{font-weight:900;font-size:2.6rem;line-height:1;letter-spacing:-.01em}
+.ctr small{font-size:1rem;font-weight:700;color:var(--sub);margin-left:3px}
+.ctrlbl{font-size:.76rem;color:var(--sub);margin:2px 0 12px}
+.bar{height:9px;background:#eef1f6;border-radius:999px;overflow:hidden;margin-bottom:14px}
+.bar > i{display:block;height:100%;border-radius:999px;transition:width .4s}
+.nums{display:flex;gap:10px}
+.num{flex:1;background:var(--bg);border-radius:12px;padding:10px;text-align:center}
+.num b{display:block;font-size:1.3rem;font-weight:900}
+.num span{font-size:.72rem;color:var(--sub)}
+.plink{display:inline-block;margin-top:12px;font-size:.78rem;color:#1668e3;text-decoration:none;font-weight:700}
+.foot{margin-top:24px;font-size:.82rem;color:var(--sub)}
+.foot a{color:#1668e3}
+.totrow{display:flex;gap:14px;margin:18px 0 0;flex-wrap:wrap}
+.tot{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px 18px}
+.tot b{font-size:1.3rem;font-weight:900}.tot span{font-size:.76rem;color:var(--sub);display:block}
+.err{color:#c0392b;font-weight:700}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="head">
+    <h1>🎤 カラオケLP A/Bテスト</h1>
+    <span class="updated" id="updated">読み込み中…</span>
+  </div>
+  <p class="note">同じURLに来た人へ3パターンをランダム表示し、どれが一番クリックされるかを計測しています。20秒ごとに自動更新。</p>
+  <div id="banner"></div>
+  <div class="cards" id="cards"></div>
+  <div class="totrow" id="totrow"></div>
+  <p class="foot">
+    指標の見方：<b>CTR（クリック率）</b>＝「LINEボタンが押された数 ÷ 表示された数」。これが高いパターンほど反応が取れています。<br>
+    ※録画・ヒートマップ（どこで離脱したか）は <a href="https://clarity.microsoft.com" target="_blank" rel="noopener">Clarity</a> で見られます。<br>
+    各パターンを確認：<a href="./?v=a" target="_blank">A</a> ／ <a href="./?v=b" target="_blank">B</a> ／ <a href="./?v=c" target="_blank">C</a><br>
+    <a href="#" id="resetBtn" style="color:#c0392b">🔄 データをリセット（管理者）</a>
+  </p>
+</main>
+<script>
+var STATS='https://note-studio-tedi.onrender.com/ab/stats';
+var META={
+  a:{name:'A クリーン / 信頼',color:'#1668e3'},
+  b:{name:'B エモ / 夜',color:'#2ea86a'},
+  c:{name:'C ポップ / 数字',color:'#ff4b2b'}
+};
+var MIN_JUDGE=30; // 判断に最低限ほしい表示数の目安（1パターンあたり）
+
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+
+function render(V){
+  var keys=['a','b','c'];
+  var maxView=Math.max(1,...keys.map(function(k){return (V[k]||{}).view||0}));
+  var totView=0,totClick=0;
+  // 勝者判定: 表示が MIN_JUDGE 以上あるパターンの中で最大CTR
+  var eligible=keys.filter(function(k){return ((V[k]||{}).view||0)>=MIN_JUDGE});
+  var winner=null,best=-1;
+  eligible.forEach(function(k){var c=(V[k]||{}).ctr||0; if(c>best){best=c;winner=k;}});
+
+  var html=keys.map(function(k){
+    var d=V[k]||{view:0,click:0,ctr:0};
+    totView+=d.view; totClick+=d.click;
+    var m=META[k];
+    var isWin=(k===winner);
+    return '<div class="card'+(isWin?' win':'')+'">'
+      +(isWin?'<span class="crown">🏆 現在トップ</span>':'')
+      +'<div class="pname"><span class="dot" style="background:'+m.color+'"></span>'+esc(m.name)+'</div>'
+      +'<div class="psub">パターン '+k.toUpperCase()+'</div>'
+      +'<div class="ctr" style="color:'+m.color+'">'+d.ctr+'<small>%</small></div>'
+      +'<div class="ctrlbl">クリック率（CTR）</div>'
+      +'<div class="bar"><i style="width:'+Math.min(100,d.ctr)+'%;background:'+m.color+'"></i></div>'
+      +'<div class="nums"><div class="num"><b>'+d.view+'</b><span>表示</span></div>'
+      +'<div class="num"><b>'+d.click+'</b><span>クリック</span></div></div>'
+      +'<a class="plink" href="./?v='+k+'" target="_blank">このパターンを見る →</a>'
+      +'</div>';
+  }).join('');
+  document.getElementById('cards').innerHTML=html;
+
+  document.getElementById('totrow').innerHTML=
+    '<div class="tot"><b>'+totView+'</b><span>合計 表示</span></div>'
+    +'<div class="tot"><b>'+totClick+'</b><span>合計 クリック</span></div>'
+    +'<div class="tot"><b>'+(totView?(totClick/totView*100).toFixed(1):0)+'%</b><span>全体 CTR</span></div>';
+
+  var enough=keys.every(function(k){return ((V[k]||{}).view||0)>=MIN_JUDGE});
+  var b=document.getElementById('banner');
+  if(totView===0){ b.className='banner'; b.textContent='まだデータがありません。LPにアクセスが流れると、ここに数字が出ます（反映に少しラグがあります）。'; }
+  else if(!enough){ b.className='banner'; b.textContent='📊 データ収集中。各パターンが'+MIN_JUDGE+'表示を超えるまでは参考値です（今の差はまだ偶然の可能性あり）。'; }
+  else { b.className='banner ok'; b.textContent='✅ 各パターンに十分な表示が貯まりました。CTRが高いパターンが有力です。'; }
+}
+
+function load(){
+  fetch(STATS,{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+    render(j.variants||{});
+    var d=new Date();
+    document.getElementById('updated').textContent='最終更新 '+d.toLocaleTimeString('ja-JP');
+  }).catch(function(){
+    document.getElementById('updated').innerHTML='<span class="err">取得に失敗（サーバ起動待ちかも。数秒後に自動再試行）</span>';
+  });
+}
+load(); setInterval(load,20000);
+
+document.getElementById('resetBtn').addEventListener('click',function(e){
+  e.preventDefault();
+  var pw=prompt('管理者パスワードを入力すると、計測データを全消去します（テストデータの初期化用）');
+  if(!pw)return;
+  fetch(STATS.replace('/ab/stats','/ab/reset')+'?pw='+encodeURIComponent(pw),{method:'POST'})
+    .then(function(r){return r.json()})
+    .then(function(j){ alert(j.ok?'リセットしました':'失敗しました（パスワードが違う可能性）'); load(); })
+    .catch(function(){ alert('通信に失敗しました'); });
+});
+</script>
+</body>
+</html>

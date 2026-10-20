@@ -113,10 +113,12 @@ body{margin:0;color:var(--ink);font-family:var(--f);font-weight:500;line-height:
 <!-- MEASURE --><script>
 (function(){
   var V=(location.pathname.match(/([abc])\.html/)||[])[1];if(!V){try{V=localStorage.getItem('klp_ab')}catch(e){}}V=V||'x';
+  function abHit(ev,pos){try{if(['a','b','c'].indexOf(V)<0)return;var u='https://note-studio-tedi.onrender.com/ab/hit';var d=JSON.stringify({variant:V,event:ev,position:pos||''});if(navigator.sendBeacon){navigator.sendBeacon(u,d);}else{fetch(u,{method:'POST',body:d,keepalive:true,mode:'no-cors'});}}catch(e){}}
   if(window.gtag)gtag('event','lp_view',{variant:V});
   if(window.clarity){clarity('set','variant',V);clarity('event','lp_view_'+V);}
+  abHit('lp_view');
   var cs=[].slice.call(document.querySelectorAll('a[href*="lin.ee"]'));
-  cs.forEach(function(a,i){a.addEventListener('click',function(){var pos=a.closest('.bar-fix')?'fixed':(i===0?'fv':(i>=cs.length-2?'foot':'mid'));if(window.gtag)gtag('event','cta_click',{variant:V,position:pos});if(window.clarity)clarity('event','cta_'+V+'_'+pos);});});
+  cs.forEach(function(a,i){a.addEventListener('click',function(){var pos=a.closest('.bar-fix')?'fixed':(i===0?'fv':(i>=cs.length-2?'foot':'mid'));if(window.gtag)gtag('event','cta_click',{variant:V,position:pos});if(window.clarity)clarity('event','cta_'+V+'_'+pos);abHit('cta_click',pos);});});
 })();
 </script>
 </body>
