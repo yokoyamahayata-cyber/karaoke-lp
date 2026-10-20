@@ -99,5 +99,22 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--fb);line-he
 <div class="bar-fix">
   <a class="cta" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">▶ 無料で受け取る（LINE）</a>
 </div>
+<!-- MEASURE --><script>
+(function(){
+  var V = (location.pathname.match(/([abc])\.html/)||[])[1];
+  if(!V){ try{ V = localStorage.getItem('klp_ab'); }catch(e){} }
+  V = V || 'x';
+  if(window.gtag) gtag('event','lp_view',{variant:V});
+  if(window.clarity){ clarity('set','variant',V); clarity('event','lp_view_'+V); }
+  var ctas = [].slice.call(document.querySelectorAll('a[href*="lin.ee"]'));
+  ctas.forEach(function(a,i){
+    a.addEventListener('click',function(){
+      var pos = a.closest('.bar-fix') ? 'fixed' : (i===0?'fv':(i>=ctas.length-2?'foot':'mid'));
+      if(window.gtag) gtag('event','cta_click',{variant:V,position:pos});
+      if(window.clarity) clarity('event','cta_'+V+'_'+pos);
+    });
+  });
+})();
+</script>
 </body>
 </html>
