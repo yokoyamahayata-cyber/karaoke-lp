@@ -42,6 +42,12 @@ body{margin:0;color:var(--ink);font-family:var(--f);font-weight:500;line-height:
 .steps{list-style:none;margin:0;padding:0}
 .steps li{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin:0 0 11px;font-size:1rem;font-weight:700}
 .steps .n{flex:0 0 32px;height:32px;border-radius:9px;background:rgba(46,229,127,.14);color:var(--neon);display:grid;place-items:center;font-weight:900}
+.gifts{display:flex;flex-direction:column;gap:11px}
+.gift{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px}
+.gift img{flex:0 0 78px;width:78px;height:78px;object-fit:cover;border-radius:10px;border:1px solid var(--bd);background:#0c1222}
+.gift .gt{font-weight:700;font-size:.95rem;line-height:1.6}
+.gift .gn{display:inline-block;background:rgba(46,229,127,.16);color:var(--neon);font-weight:900;font-size:.72rem;border-radius:6px;padding:2px 7px;margin-right:7px}
+.gift-note{text-align:center;font-size:.82rem;color:var(--sub);margin:12px 0 0;font-weight:500}
 .proof img{width:100%;border-radius:14px;border:1px solid var(--bd);display:block}
 .proof .cap{font-size:.8rem;color:var(--sub);text-align:center;margin:10px 0 0}
 .bar-fix{position:fixed;left:0;right:0;bottom:0;background:rgba(12,18,34,.92);backdrop-filter:blur(10px);border-top:1px solid var(--bd);padding:11px 16px calc(11px + env(safe-area-inset-bottom));z-index:20}
@@ -78,6 +84,16 @@ body{margin:0;color:var(--ink);font-family:var(--f);font-weight:500;line-height:
       <li><span class="n">2</span>ビブラート・こぶしで表現点を足す</li>
       <li><span class="n">3</span>自分に合う曲で、点を取りにいく</li>
     </ul>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-ttl">受け取れる無料プレゼント</h2>
+    <div class="gifts">
+      <div class="gift"><img src="../img/20151213015832.jpg" alt="トレーニングメソッドのマニュアル表紙"><div class="gt"><span class="gn">01</span>90点超えの練習マニュアル（約100ページ・解説付き）</div></div>
+      <div class="gift"><img src="../img/20160226203437.jpg" alt="完全マニュアルの目次ページ"><div class="gt"><span class="gn">02</span>精密採点の攻略を最短でまとめた完全マニュアル</div></div>
+      <div class="gift"><img src="../img/20151213015910.jpg" alt="解説動画のディスク"><div class="gt"><span class="gn">03</span>3〜5分×15本・合計約1時間の解説動画</div></div>
+    </div>
+    <p class="gift-note">※登録後、LINEですべて無料で受け取れます</p>
   </section>
 
   <section class="sec proof">
