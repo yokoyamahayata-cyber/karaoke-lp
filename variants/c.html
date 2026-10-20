@@ -4,117 +4,110 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>72点→90点 精密採点メソッド（無料LINE）</title>
+<meta name="robots" content="noindex">
 <script type="text/javascript">/* Microsoft Clarity */(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","z0jz9ezhl4");</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#eef1f5;--card:#fff;--fg:#2b3242;--muted:#6a7387;--line:#06c755;
-  --score:#e8432e;--blue:#1f7fd6;--soft:#f4f6f9;--bd:#e2e6ec;
-  --fd:"Dela Gothic One","Hiragino Sans",sans-serif;
+  --bg:#fff6ea;--ink:#241a12;--sub:#6b5a49;--line:#06c755;
+  --red:#ff4b2b;--yellow:#ffc233;--card:#ffffff;--bd:#f0e2cf;
   --fb:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans",sans-serif;
+  --fn:"Dela Gothic One","Hiragino Sans",sans-serif;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--fb);line-height:1.8;-webkit-font-smoothing:antialiased}
-.wrap{max-width:460px;margin:0 auto;padding:0 18px 120px}
-.fv{padding:34px 0 24px;text-align:center}
-.eyebrow{display:inline-block;background:#fff;border:1px solid var(--bd);color:var(--muted);font-size:.78rem;font-weight:700;border-radius:999px;padding:6px 14px;margin-bottom:18px}
-.ba{display:flex;align-items:center;justify-content:center;gap:10px;margin:4px 0 16px}
-.ba .box{background:#fff;border:1px solid var(--bd);border-radius:16px;padding:12px 16px;min-width:108px}
-.ba .box .lbl{font-size:.72rem;color:var(--muted)}
-.ba .box .pt{font-family:var(--fd);font-size:2rem;line-height:1.1}
-.ba .box.before .pt{color:var(--muted)}
-.ba .box.after{border-color:var(--score);box-shadow:0 8px 18px -8px rgba(232,67,46,.4)}
-.ba .box.after .pt{color:var(--score)}
-.ba .arrow{font-family:var(--fd);color:var(--score);font-size:1.3rem}
-.h-main{font-family:var(--fd);font-size:1.4rem;line-height:1.4;margin:0 0 12px}
-.lead{font-size:1rem;color:var(--muted);margin:0 auto 22px;max-width:22em}
-.cta{display:block;background:var(--line);color:#fff;text-decoration:none;font-weight:900;font-size:1.12rem;text-align:center;padding:17px 16px;border-radius:16px;box-shadow:0 10px 22px -8px rgba(6,199,85,.6);transition:transform .1s}
-.cta:active{transform:scale(.98)}
-.cta .mini{display:block;font-size:.72rem;font-weight:500;opacity:.92;margin-top:3px}
-.assure{font-size:.76rem;color:var(--muted);text-align:center;margin:10px 0 0}
-.sec{margin:30px 0}
-.sec-ttl{font-family:var(--fd);font-size:1.1rem;text-align:center;margin:0 0 16px}
-.video{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--bd);background:#000}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--fb);font-weight:500;line-height:1.9;font-size:16px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:440px;margin:0 auto;padding:0 18px 128px}
+.fv{padding:30px 0 22px;text-align:center}
+.badge{display:inline-block;background:var(--ink);color:#fff;font-weight:900;font-size:.78rem;border-radius:999px;padding:7px 16px;margin-bottom:20px}
+.ba{display:flex;align-items:center;justify-content:center;gap:12px;margin:6px 0 18px}
+.ba .box{background:var(--card);border:3px solid var(--ink);border-radius:18px;padding:10px 18px;box-shadow:5px 5px 0 var(--ink)}
+.ba .box .lbl{font-size:.72rem;font-weight:900;color:var(--sub)}
+.ba .box .pt{font-family:var(--fn);font-size:2.3rem;line-height:1.05}
+.ba .box.before .pt{color:var(--sub)}
+.ba .box.after{border-color:var(--red);box-shadow:5px 5px 0 var(--red)}
+.ba .box.after .pt{color:var(--red)}
+.ba .arrow{font-family:var(--fn);color:var(--red);font-size:1.5rem}
+.h-main{font-weight:900;font-size:1.5rem;line-height:1.5;margin:0 0 12px}
+.h-main mark{background:linear-gradient(transparent 55%,var(--yellow) 55%);padding:0 2px}
+.lead{font-size:1rem;color:var(--sub);margin:0 auto 22px;max-width:21em;font-weight:700}
+.cta{display:block;background:var(--line);color:#fff;text-decoration:none;font-weight:900;font-size:1.12rem;text-align:center;padding:18px 16px;border-radius:16px;box-shadow:0 6px 0 #049a43}
+.cta:active{transform:translateY(3px);box-shadow:0 3px 0 #049a43}
+.cta .mini{display:block;font-size:.74rem;font-weight:700;opacity:.95;margin-top:4px}
+.assure{font-size:.8rem;color:var(--sub);text-align:center;margin:12px 0 0;font-weight:700}
+.sec{margin:34px 0}
+.sec-ttl{font-weight:900;font-size:1.22rem;text-align:center;margin:0 0 18px}
+.sec-ttl .em{color:var(--red)}
+.video{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:3px solid var(--ink);background:#000;box-shadow:5px 5px 0 var(--ink)}
 .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .axis{list-style:none;margin:0;padding:0}
-.axis li{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px 16px;margin:0 0 10px}
-.axis li .t{font-weight:700}
-.axis li .d{font-size:.9rem;color:var(--muted)}
-.why{background:var(--soft);border:1px dashed #cdd4de;border-radius:16px;padding:16px;font-size:.93rem}
-.why b{color:var(--score)}
-.proof img{width:100%;border-radius:14px;border:1px solid var(--bd);display:block}
-.proof .cap{font-size:.76rem;color:var(--muted);text-align:center;margin:8px 0 0}
-.bar-fix{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-top:1px solid var(--bd);padding:10px 14px calc(10px + env(safe-area-inset-bottom));z-index:20}
-.bar-fix .cta{max-width:432px;margin:0 auto;padding:14px}
-.foot{text-align:center;color:var(--muted);font-size:.74rem;margin:26px 0 0}
+.axis li{background:var(--card);border:2px solid var(--ink);border-radius:16px;padding:15px 16px;margin:0 0 12px;box-shadow:4px 4px 0 rgba(36,26,18,.14)}
+.axis li .t{font-weight:900;font-size:1.02rem;display:flex;align-items:center;gap:8px}
+.axis li .t .n{background:var(--red);color:#fff;font-family:var(--fn);font-size:.82rem;width:26px;height:26px;border-radius:8px;display:grid;place-items:center}
+.axis li .d{font-size:.92rem;color:var(--sub);font-weight:700;margin-top:6px}
+.why{background:var(--ink);color:#fff;border-radius:18px;padding:20px;font-size:.96rem;font-weight:700}
+.why b{color:var(--yellow)}
+.proof img{width:100%;border-radius:14px;border:2px solid var(--ink);display:block}
+.proof .cap{font-size:.8rem;color:var(--sub);text-align:center;margin:10px 0 0;font-weight:700}
+.bar-fix{position:fixed;left:0;right:0;bottom:0;background:rgba(255,246,234,.95);backdrop-filter:blur(10px);border-top:2px solid var(--bd);padding:11px 16px calc(11px + env(safe-area-inset-bottom));z-index:20}
+.bar-fix .cta{max-width:408px;margin:0 auto;padding:15px}
+.foot{text-align:center;color:var(--sub);font-size:.78rem;margin:30px 0 0;font-weight:700}
 </style>
 </head>
 <body>
 <main class="wrap">
   <section class="fv">
-    <span class="eyebrow">教室に通わず・自宅の練習だけで</span>
+    <span class="badge">教室に通わず・自宅の練習だけで</span>
     <div class="ba">
-      <div class="box before"><div class="lbl">Before</div><div class="pt">72</div></div>
+      <div class="box before"><div class="lbl">BEFORE</div><div class="pt">72</div></div>
       <div class="arrow">▶</div>
-      <div class="box after"><div class="lbl">After</div><div class="pt">90</div></div>
+      <div class="box after"><div class="lbl">AFTER</div><div class="pt">90</div></div>
     </div>
-    <h1 class="h-main">やったのは、この練習だけ。</h1>
-    <p class="lead">精密採点を上げる練習を、無料のLINEで毎日ひとつずつ。まずは実際の歌を聴いてみてください。</p>
+    <h1 class="h-main">やったのは、<br><mark>この練習だけ。</mark></h1>
+    <p class="lead">精密採点を上げる練習を、無料のLINEで毎日ひとつずつ。まずは実際の歌を聴いてみて。</p>
     <a class="cta" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">LINEで無料の練習を受け取る<span class="mini">登録0円・いつでもやめられます</span></a>
   </section>
 
   <section class="sec">
-    <h2 class="sec-ttl">まずは聴いてください（実演）</h2>
+    <h2 class="sec-ttl">まずは<span class="em">聴いて</span>ください</h2>
     <div class="video"><iframe src="https://www.youtube.com/embed/8Lg-FmcRyz4" title="歌唱の実演" loading="lazy" allowfullscreen></iframe></div>
   </section>
 
   <section class="sec">
-    <h2 class="sec-ttl">無料LINEで配る、3つの軸</h2>
+    <h2 class="sec-ttl">無料LINEで配る<span class="em">3つの軸</span></h2>
     <ul class="axis">
-      <li><div class="t">① 発声</div><div class="d">採点の土台。声の出し方を変えるだけで安定して点が伸びます。</div></li>
-      <li><div class="t">② 表現（ビブラート・こぶし）</div><div class="d">加点に直結するテクニックを、かけ方から具体的に。</div></li>
-      <li><div class="t">③ 選曲と練習法</div><div class="d">自分に合う曲と、点に直結する練習メニューの組み方。</div></li>
+      <li><div class="t"><span class="n">1</span>発声</div><div class="d">採点の土台。声の出し方を変えるだけで、点が安定して伸びます。</div></li>
+      <li><div class="t"><span class="n">2</span>表現（ビブラート・こぶし）</div><div class="d">加点に直結するテクニックを、かけ方から具体的に。</div></li>
+      <li><div class="t"><span class="n">3</span>選曲と練習法</div><div class="d">自分に合う曲と、点に直結する練習メニューの組み方。</div></li>
     </ul>
   </section>
 
   <section class="sec">
-    <div class="why">なぜ無料で、しかもLINEなのか。<br><b>上達は「続けられるかどうか」で決まる</b>からです。1回のまとまった教材より、毎日1通ずつ届くほうが、無理なく積み上がります。</div>
+    <div class="why">なぜ無料で、しかもLINEなのか。<br><b>上達は「続けられるか」で決まる</b>からです。1回のまとまった教材より、毎日1通ずつ届くほうが、無理なく積み上がります。</div>
   </section>
 
   <section class="sec proof">
-    <h2 class="sec-ttl">受け取った人のやり取り</h2>
+    <h2 class="sec-ttl">受け取った人の<span class="em">やり取り</span></h2>
     <img src="../img/20170407102436.jpg" alt="受講者とのLINEのやり取り" loading="lazy">
     <p class="cap">掲載許可をいただいた、実際のLINEです</p>
   </section>
 
   <section class="sec" style="text-align:center">
     <a class="cta" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">LINEで無料の練習を受け取る<span class="mini">登録0円・1分で完了</span></a>
-    <p class="assure">※点数は個人差があります（72→90は一例です）</p>
+    <p class="assure">※点数は個人差があります（72→90は一例）</p>
   </section>
 
   <p class="foot">効果を保証するものではありません。<br>ボーカルプロデューサーよこ</p>
 </main>
-
-<div class="bar-fix">
-  <a class="cta" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">▶ 無料で受け取る（LINE）</a>
-</div>
+<div class="bar-fix"><a class="cta" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">▶ 無料で受け取る（LINE）</a></div>
 <!-- MEASURE --><script>
 (function(){
-  var V = (location.pathname.match(/([abc])\.html/)||[])[1];
-  if(!V){ try{ V = localStorage.getItem('klp_ab'); }catch(e){} }
-  V = V || 'x';
-  if(window.gtag) gtag('event','lp_view',{variant:V});
-  if(window.clarity){ clarity('set','variant',V); clarity('event','lp_view_'+V); }
-  var ctas = [].slice.call(document.querySelectorAll('a[href*="lin.ee"]'));
-  ctas.forEach(function(a,i){
-    a.addEventListener('click',function(){
-      var pos = a.closest('.bar-fix') ? 'fixed' : (i===0?'fv':(i>=ctas.length-2?'foot':'mid'));
-      if(window.gtag) gtag('event','cta_click',{variant:V,position:pos});
-      if(window.clarity) clarity('event','cta_'+V+'_'+pos);
-    });
-  });
+  var V=(location.pathname.match(/([abc])\.html/)||[])[1];if(!V){try{V=localStorage.getItem('klp_ab')}catch(e){}}V=V||'x';
+  if(window.gtag)gtag('event','lp_view',{variant:V});
+  if(window.clarity){clarity('set','variant',V);clarity('event','lp_view_'+V);}
+  var cs=[].slice.call(document.querySelectorAll('a[href*="lin.ee"]'));
+  cs.forEach(function(a,i){a.addEventListener('click',function(){var pos=a.closest('.bar-fix')?'fixed':(i===0?'fv':(i>=cs.length-2?'foot':'mid'));if(window.gtag)gtag('event','cta_click',{variant:V,position:pos});if(window.clarity)clarity('event','cta_'+V+'_'+pos);});});
 })();
 </script>
 </body>

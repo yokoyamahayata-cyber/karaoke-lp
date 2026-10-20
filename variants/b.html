@@ -4,64 +4,68 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>カラオケ採点90点 無料LINE</title>
+<meta name="robots" content="noindex">
 <script type="text/javascript">/* Microsoft Clarity */(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","z0jz9ezhl4");</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#1d2130;--card:#262b3c;--fg:#eef1f7;--muted:#9aa3bb;--line:#06c755;
-  --score:#ff6a55;--soft:#2e3447;--bd:#363d52;
-  --fd:"Dela Gothic One","Hiragino Sans",sans-serif;
-  --fb:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans",sans-serif;
+  --ink:#f4f7fd;--sub:#b3bdd2;--line:#06c755;--neon:#2ee57f;
+  --card:#1b2234;--bd:#2c3650;
+  --f:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--fb);line-height:1.85;-webkit-font-smoothing:antialiased}
-.wrap{max-width:460px;margin:0 auto;padding:0 18px 120px}
-.fv{padding:44px 0 28px}
-.kicker{color:var(--score);font-weight:700;font-size:.82rem;letter-spacing:.04em;margin:0 0 14px}
-.h-main{font-family:var(--fd);font-size:1.74rem;line-height:1.42;margin:0 0 16px}
-.h-main em{font-style:normal;color:var(--score)}
-.lead{font-size:1rem;color:var(--muted);margin:0 0 24px}
-.cta{display:block;background:var(--line);color:#fff;text-decoration:none;font-weight:900;font-size:1.12rem;text-align:center;padding:17px 16px;border-radius:16px;box-shadow:0 10px 24px -8px rgba(6,199,85,.55);transition:transform .1s}
-.cta:active{transform:scale(.98)}
-.cta .mini{display:block;font-size:.72rem;font-weight:500;opacity:.92;margin-top:3px}
-.assure{font-size:.76rem;color:var(--muted);text-align:center;margin:10px 0 0}
-.sec{margin:34px 0}
-.ablock{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:20px}
-.ablock p{margin:0 0 12px}.ablock p:last-child{margin:0}
-.ablock .q{color:var(--fg);font-weight:700}
-.turn{text-align:center;font-family:var(--fd);font-size:1.18rem;line-height:1.5;margin:28px 0}
-.turn .hl{color:var(--score)}
+body{margin:0;color:var(--ink);font-family:var(--f);font-weight:500;line-height:1.95;font-size:16px;
+  background:radial-gradient(120% 60% at 50% 0%,#1a2742 0%,#111a2e 45%,#0c1222 100%);-webkit-font-smoothing:antialiased}
+.wrap{max-width:440px;margin:0 auto;padding:0 20px 128px}
+.fv{padding:56px 0 30px}
+.kicker{color:var(--neon);font-weight:700;font-size:.84rem;letter-spacing:.05em;margin:0 0 18px;display:flex;align-items:center;gap:8px}
+.kicker::before{content:"";width:22px;height:2px;background:var(--neon)}
+.h-main{font-weight:900;font-size:2.1rem;line-height:1.42;letter-spacing:.01em;margin:0 0 20px}
+.h-main em{font-style:normal;color:var(--neon)}
+.lead{font-size:1.02rem;color:var(--sub);margin:0 0 28px;font-weight:500}
+.cta{display:block;background:var(--line);color:#fff;text-decoration:none;font-weight:900;font-size:1.1rem;text-align:center;padding:18px 16px;border-radius:14px;box-shadow:0 0 0 1px rgba(46,229,127,.3),0 14px 30px -10px rgba(6,199,85,.6)}
+.cta:active{transform:translateY(1px)}
+.cta .mini{display:block;font-size:.74rem;font-weight:500;opacity:.95;margin-top:4px}
+.assure{font-size:.8rem;color:var(--sub);text-align:center;margin:12px 0 0}
+.sec{margin:40px 0}
+.empathy{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:22px}
+.empathy .q{font-weight:900;font-size:1.05rem;margin:0 0 14px}
+.empathy p{margin:0 0 12px;font-size:1rem;padding-left:18px;position:relative}
+.empathy p::before{content:"";position:absolute;left:0;top:14px;width:7px;height:7px;border-radius:50%;background:var(--sub)}
+.empathy .note{color:var(--sub);padding-left:0;font-weight:500}
+.empathy .note::before{display:none}
+.turn{text-align:center;font-weight:900;font-size:1.5rem;line-height:1.55;margin:36px 0}
+.turn .hl{color:var(--neon)}
+.sec-ttl{font-weight:900;font-size:1.22rem;text-align:center;margin:0 0 20px}
 .steps{list-style:none;margin:0;padding:0}
-.steps li{display:flex;gap:12px;padding:12px 0;border-bottom:1px dashed var(--bd);font-size:.96rem}
-.steps li:last-child{border-bottom:0}
-.steps .n{flex:0 0 28px;height:28px;border-radius:9px;background:var(--soft);color:var(--score);display:grid;place-items:center;font-family:var(--fd);font-size:.82rem}
+.steps li{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin:0 0 11px;font-size:1rem;font-weight:700}
+.steps .n{flex:0 0 32px;height:32px;border-radius:9px;background:rgba(46,229,127,.14);color:var(--neon);display:grid;place-items:center;font-weight:900}
 .proof img{width:100%;border-radius:14px;border:1px solid var(--bd);display:block}
-.proof .cap{font-size:.76rem;color:var(--muted);text-align:center;margin:8px 0 0}
-.sec-ttl{font-family:var(--fd);font-size:1.1rem;text-align:center;margin:0 0 16px}
-.bar-fix{position:fixed;left:0;right:0;bottom:0;background:rgba(29,33,48,.9);backdrop-filter:blur(8px);border-top:1px solid var(--bd);padding:10px 14px calc(10px + env(safe-area-inset-bottom));z-index:20}
-.bar-fix .cta{max-width:432px;margin:0 auto;padding:14px}
-.foot{text-align:center;color:var(--muted);font-size:.74rem;margin:26px 0 0}
+.proof .cap{font-size:.8rem;color:var(--sub);text-align:center;margin:10px 0 0}
+.bar-fix{position:fixed;left:0;right:0;bottom:0;background:rgba(12,18,34,.92);backdrop-filter:blur(10px);border-top:1px solid var(--bd);padding:11px 16px calc(11px + env(safe-area-inset-bottom));z-index:20}
+.bar-fix .cta{max-width:408px;margin:0 auto;padding:15px}
+.foot{text-align:center;color:var(--sub);font-size:.78rem;margin:30px 0 0;font-weight:500}
 </style>
 </head>
 <body>
 <main class="wrap">
   <section class="fv">
     <p class="kicker">カラオケで“聴く側”になりがちな人へ</p>
-    <h1 class="h-main">友達の点数を、<br>横目で見るカラオケは<br><em>今日まで</em>。</h1>
+    <h1 class="h-main">自分の番だけ、<br>場が静かになる。<br><em>それ、終わりにしよう。</em></h1>
     <p class="lead">精密採点90点は、才能じゃなく“やり方”です。その手順を、無料のLINEレッスンで1つずつ配っています。</p>
     <a class="cta" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">LINEで無料で受け取る<span class="mini">登録0円・いつでもやめられます</span></a>
-    <p class="assure">タップでLINEが開きます</p>
+    <p class="assure">タップするとLINEが開きます</p>
   </section>
 
   <section class="sec">
-    <div class="ablock">
+    <div class="empathy">
       <p class="q">こんなこと、ありませんか。</p>
-      <p>・採点モードは、こっそりOFFにしてしまう</p>
-      <p>・歌う前に「喉の調子悪くて」と予防線を張る</p>
-      <p>・上手い友達が歌うと、つい黙って聴いてしまう</p>
-      <p style="color:var(--muted)">点が出ないのは、あなたの喉のせいでも、才能のせいでもありません。</p>
+      <p>採点モードは、こっそりOFFにしてしまう</p>
+      <p>歌う前に「喉の調子悪くて」と予防線を張る</p>
+      <p>上手い友達が歌うと、つい黙って聴いてしまう</p>
+      <p class="note">点が出ないのは、あなたの喉のせいでも、才能のせいでもありません。</p>
     </div>
   </section>
 
@@ -69,7 +73,7 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--fb);line-he
 
   <section class="sec">
     <h2 class="sec-ttl">無料LINEで配る、3つの手順</h2>
-    <ul class="ablock steps">
+    <ul class="steps">
       <li><span class="n">1</span>採点が上がる「発声」をつくる</li>
       <li><span class="n">2</span>ビブラート・こぶしで表現点を足す</li>
       <li><span class="n">3</span>自分に合う曲で、点を取りにいく</li>
@@ -83,31 +87,20 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--fb);line-he
   </section>
 
   <section class="sec" style="text-align:center">
-    <a class="cta" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">次のカラオケに間に合わせる<span class="mini">LINE登録0円・1分で完了</span></a>
-    <p class="assure">合わなければ、いつでもブロックでやめられます</p>
+    <a class="cta" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">次のカラオケに、間に合わせる<span class="mini">LINE登録0円・1分で完了</span></a>
+    <p class="assure">合わなければ、いつでもやめられます</p>
   </section>
 
-  <p class="foot">※個人差があります。効果を保証するものではありません。<br>ボーカルプロデューサーよこ</p>
+  <p class="foot">※効果には個人差があります。<br>ボーカルプロデューサーよこ</p>
 </main>
-
-<div class="bar-fix">
-  <a class="cta" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">▶ 無料で受け取る（LINE）</a>
-</div>
+<div class="bar-fix"><a class="cta" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">▶ 無料で受け取る（LINE）</a></div>
 <!-- MEASURE --><script>
 (function(){
-  var V = (location.pathname.match(/([abc])\.html/)||[])[1];
-  if(!V){ try{ V = localStorage.getItem('klp_ab'); }catch(e){} }
-  V = V || 'x';
-  if(window.gtag) gtag('event','lp_view',{variant:V});
-  if(window.clarity){ clarity('set','variant',V); clarity('event','lp_view_'+V); }
-  var ctas = [].slice.call(document.querySelectorAll('a[href*="lin.ee"]'));
-  ctas.forEach(function(a,i){
-    a.addEventListener('click',function(){
-      var pos = a.closest('.bar-fix') ? 'fixed' : (i===0?'fv':(i>=ctas.length-2?'foot':'mid'));
-      if(window.gtag) gtag('event','cta_click',{variant:V,position:pos});
-      if(window.clarity) clarity('event','cta_'+V+'_'+pos);
-    });
-  });
+  var V=(location.pathname.match(/([abc])\.html/)||[])[1];if(!V){try{V=localStorage.getItem('klp_ab')}catch(e){}}V=V||'x';
+  if(window.gtag)gtag('event','lp_view',{variant:V});
+  if(window.clarity){clarity('set','variant',V);clarity('event','lp_view_'+V);}
+  var cs=[].slice.call(document.querySelectorAll('a[href*="lin.ee"]'));
+  cs.forEach(function(a,i){a.addEventListener('click',function(){var pos=a.closest('.bar-fix')?'fixed':(i===0?'fv':(i>=cs.length-2?'foot':'mid'));if(window.gtag)gtag('event','cta_click',{variant:V,position:pos});if(window.clarity)clarity('event','cta_'+V+'_'+pos);});});
 })();
 </script>
 </body>
