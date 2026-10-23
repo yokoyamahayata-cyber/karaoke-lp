@@ -23,22 +23,25 @@
 <body>
 <div class="boot">読み込み中…</div>
 <script>
-/* ===== A/Bテスト振り分け: 同じURLで a/b/c をランダム表示。同じ訪問者には同じパターンを固定。 ===== */
+/* ===== A/Bテスト振り分け: 同じURLで b/c をランダム表示。同じ訪問者には同じパターンを固定。 ===== */
 (function(){
-  var KEY='klp_ab', POOL=['a','b','c'];
-  var forced=(location.search.match(/[?&]v=([abc])/)||[])[1];      // ?v=a で特定パターンを強制（確認用）
+  var KEY='klp_ab', POOL=['b','c'];                                 // Aは配信終了（?v=a でプレビューのみ可）
+  var forced=(location.search.match(/[?&]v=([abc])/)||[])[1];      // ?v=b で特定パターンを強制（確認用）
+  try{
+    if(/[?&]track=on/.test(location.search)){ localStorage.removeItem('klp_notrack'); }  // 計測除外の解除
+    else if(forced){ localStorage.setItem('klp_notrack','1'); }    // プレビューしたブラウザは以後計測から除外
+  }catch(e){}
   var v;
   try{ v=localStorage.getItem(KEY); }catch(e){}
+  if(!v || POOL.indexOf(v)<0){ v=POOL[Math.floor(Math.random()*POOL.length)]; try{ localStorage.setItem(KEY,v); }catch(e){} }
   if(forced){ v=forced; }
-  if(!v || POOL.indexOf(v)<0){ v=POOL[Math.floor(Math.random()*POOL.length)]; }
-  try{ localStorage.setItem(KEY,v); }catch(e){}
   fetch('variants/'+v+'.html',{cache:'no-store'})
     .then(function(r){ if(!r.ok) throw 0; return r.text(); })
     .then(function(html){
       html=html.replace(/\.\.\/img\//g,'img/');   // variantsの ../img/ をトップ基準 img/ に補正
       document.open(); document.write(html); document.close();
     })
-    .catch(function(){ location.replace('variants/'+v+'.html'); });  // 取得失敗時はそのページへ遷移
+    .catch(function(){ location.replace('variants/'+v+'.html'+location.search); });  // 取得失敗時はそのページへ遷移
 })();
 </script>
 </body>

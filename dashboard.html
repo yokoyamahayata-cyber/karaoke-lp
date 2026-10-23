@@ -19,7 +19,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic
 .note{font-size:.85rem;color:var(--sub);margin:0 0 20px}
 .banner{background:#fff7ec;border:1px solid #f3dcb8;color:#8a5a1c;border-radius:12px;padding:12px 16px;font-size:.88rem;font-weight:700;margin:0 0 18px}
 .banner.ok{background:#eafaf0;border-color:#bfe8cf;color:#1b7a43}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 @media(max-width:620px){.cards{grid-template-columns:1fr}}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;position:relative;transition:box-shadow .2s}
 .card.win{border-color:var(--win);box-shadow:0 10px 26px -12px rgba(6,199,85,.5)}
@@ -54,21 +54,21 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic
     <h1>🎤 カラオケLP A/Bテスト</h1>
     <span class="updated" id="updated">読み込み中…</span>
   </div>
-  <p class="note">同じURLに来た人へ3パターンをランダム表示し、どれが一番クリックされるかを計測しています。20秒ごとに自動更新。</p>
+  <p class="note">同じURLに来た人へ2パターン（B/C）をランダム表示し、どれが一番クリックされるかを計測しています。20秒ごとに自動更新。※Aは2026/10/24に配信終了（37表示0クリックのため）。</p>
   <div id="banner"></div>
   <div class="cards" id="cards"></div>
   <div class="totrow" id="totrow"></div>
   <p class="foot">
     指標の見方：<b>CTR（クリック率）</b>＝「LINEボタンが押された数 ÷ 表示された数」。これが高いパターンほど反応が取れています。<br>
     ※録画・ヒートマップ（どこで離脱したか）は <a href="https://clarity.microsoft.com" target="_blank" rel="noopener">Clarity</a> で見られます。<br>
-    各パターンを確認：<a href="./?v=a" target="_blank">A</a> ／ <a href="./?v=b" target="_blank">B</a> ／ <a href="./?v=c" target="_blank">C</a><br>
+    各パターンを確認：<a href="./?v=b" target="_blank">B</a> ／ <a href="./?v=c" target="_blank">C</a>（配信終了した旧<a href="./?v=a" target="_blank">A</a>）<br>
+    ※プレビュー（?v= 付きURL）を一度でも開いたブラウザは、以後の表示・クリックが計測から除外されます（<a href="./?track=on" target="_blank">除外を解除</a>）。<br>
     <a href="#" id="resetBtn" style="color:#c0392b">🔄 データをリセット（管理者）</a>
   </p>
 </main>
 <script>
 var STATS='https://note-studio-tedi.onrender.com/ab/stats';
 var META={
-  a:{name:'A クリーン / 信頼',color:'#1668e3'},
   b:{name:'B エモ / 夜',color:'#2ea86a'},
   c:{name:'C ポップ / 数字',color:'#ff4b2b'}
 };
@@ -78,7 +78,7 @@ var TARGET_CTR=10; // 目標クリック率(%)
 function esc(s){return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
 
 function render(V){
-  var keys=['a','b','c'];
+  var keys=['b','c'];
   var maxView=Math.max(1,...keys.map(function(k){return (V[k]||{}).view||0}));
   var totView=0,totClick=0;
   // 勝者判定: 表示が MIN_JUDGE 以上あるパターンの中で最大CTR
