@@ -30,8 +30,11 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic
 .ctr{font-weight:900;font-size:2.6rem;line-height:1;letter-spacing:-.01em}
 .ctr small{font-size:1rem;font-weight:700;color:var(--sub);margin-left:3px}
 .ctrlbl{font-size:.76rem;color:var(--sub);margin:2px 0 12px}
-.bar{height:9px;background:#eef1f6;border-radius:999px;overflow:hidden;margin-bottom:14px}
+.bar{position:relative;height:10px;background:#eef1f6;border-radius:999px;overflow:hidden;margin-bottom:6px}
 .bar > i{display:block;height:100%;border-radius:999px;transition:width .4s}
+.goalrow{display:flex;justify-content:space-between;font-size:.72rem;color:var(--sub);margin-bottom:12px}
+.goalrow .hit{color:var(--win);font-weight:900}
+.goalrow .miss{color:var(--warn);font-weight:700}
 .nums{display:flex;gap:10px}
 .num{flex:1;background:var(--bg);border-radius:12px;padding:10px;text-align:center}
 .num b{display:block;font-size:1.3rem;font-weight:900}
@@ -70,6 +73,7 @@ var META={
   c:{name:'C ポップ / 数字',color:'#ff4b2b'}
 };
 var MIN_JUDGE=30; // 判断に最低限ほしい表示数の目安（1パターンあたり）
+var TARGET_CTR=10; // 目標クリック率(%)
 
 function esc(s){return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
 
@@ -91,9 +95,10 @@ function render(V){
       +(isWin?'<span class="crown">🏆 現在トップ</span>':'')
       +'<div class="pname"><span class="dot" style="background:'+m.color+'"></span>'+esc(m.name)+'</div>'
       +'<div class="psub">パターン '+k.toUpperCase()+'</div>'
-      +'<div class="ctr" style="color:'+m.color+'">'+d.ctr+'<small>%</small></div>'
+      +'<div class="ctr" style="color:'+(d.ctr>=TARGET_CTR?'#06c755':m.color)+'">'+d.ctr+'<small>%</small></div>'
       +'<div class="ctrlbl">クリック率（CTR）</div>'
-      +'<div class="bar"><i style="width:'+Math.min(100,d.ctr)+'%;background:'+m.color+'"></i></div>'
+      +'<div class="bar"><i style="width:'+Math.min(100,d.ctr/TARGET_CTR*100)+'%;background:'+(d.ctr>=TARGET_CTR?'#06c755':m.color)+'"></i></div>'
+      +'<div class="goalrow"><span>目標 '+TARGET_CTR+'%</span>'+(d.ctr>=TARGET_CTR?'<span class="hit">✓ 達成</span>':'<span class="miss">あと '+(TARGET_CTR-d.ctr).toFixed(1)+'pt</span>')+'</div>'
       +'<div class="nums"><div class="num"><b>'+d.view+'</b><span>表示</span></div>'
       +'<div class="num"><b>'+d.click+'</b><span>クリック</span></div></div>'
       +'<a class="plink" href="./?v='+k+'" target="_blank">このパターンを見る →</a>'
