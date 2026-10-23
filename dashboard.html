@@ -46,6 +46,32 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic
 .tot{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px 18px}
 .tot b{font-size:1.3rem;font-weight:900}.tot span{font-size:.76rem;color:var(--sub);display:block}
 .err{color:#c0392b;font-weight:700}
+.hmhead{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin:34px 0 4px}
+.hmhead h2{font-size:1.15rem;font-weight:900;margin:0}
+.wbtn{border:1px solid var(--bd);background:#fff;color:var(--sub);font:inherit;font-size:.78rem;font-weight:700;padding:5px 12px;cursor:pointer}
+.wbtn:first-child{border-radius:999px 0 0 999px}.wbtn:last-child{border-radius:0 999px 999px 0}
+.wbtn.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.hmnote{font-size:.8rem;color:var(--sub);margin:0 0 14px}
+.hmcards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:620px){.hmcards{grid-template-columns:1fr}}
+.hmcard{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px}
+.hmmeta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
+.hmmeta .num{flex:1;min-width:70px;background:var(--bg);border-radius:12px;padding:8px;text-align:center}
+.hmmeta .num b{display:block;font-size:1.05rem;font-weight:900}
+.hmmeta .num span{font-size:.68rem;color:var(--sub)}
+.sline{display:grid;grid-template-columns:7.5em 1fr 6.5em;gap:8px;align-items:center;margin:0 0 7px;font-size:.78rem}
+.sline .sn{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sline .sbar{position:relative;height:9px;background:#eef1f6;border-radius:999px;overflow:hidden}
+.sline .sbar i{display:block;height:100%;border-radius:999px}
+.sline .sv{color:var(--sub);text-align:right;white-space:nowrap}
+.hmlinks{margin-top:12px;font-size:.78rem}
+.hmlinks a{color:#1668e3;text-decoration:none;font-weight:700;margin-right:14px}
+.hmempty{color:var(--sub);font-size:.85rem;margin:6px 0}
+.tokbox{background:var(--card);border:1px dashed var(--bd);border-radius:16px;padding:18px;font-size:.85rem}
+.tokbox p{margin:0 0 10px;color:var(--sub)}
+.tokbox .row{display:flex;gap:8px}
+.tokbox input{flex:1;font:inherit;font-size:.85rem;border:1px solid var(--bd);border-radius:10px;padding:9px 12px;min-width:0}
+.tokbox button{font:inherit;font-weight:900;font-size:.85rem;border:0;border-radius:10px;background:var(--ink);color:#fff;padding:9px 16px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -58,6 +84,16 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic
   <div id="banner"></div>
   <div class="cards" id="cards"></div>
   <div class="totrow" id="totrow"></div>
+
+  <div class="hmhead">
+    <h2>🔥 ヒートマップ（直近30日）</h2>
+    <span id="hmctl" hidden>
+      <button class="wbtn on" data-w="sp">スマホ</button><button class="wbtn" data-w="pc">PC</button><button class="wbtn" data-w="all">全体</button>
+    </span>
+  </div>
+  <p class="hmnote">区間ごとの「何%の人がそこまで来たか（到達）」と平均滞在時間。重ね表示を開くと、本物のLPの上に熱が重なります。</p>
+  <div id="hmarea"></div>
+
   <p class="foot">
     指標の見方：<b>CTR（クリック率）</b>＝「LINEボタンが押された数 ÷ 表示された数」。これが高いパターンほど反応が取れています。<br>
     ※クリック位置・スクロール到達・滞在のヒートマップは <a href="https://lp-heatmap.yokoya08.workers.dev/admin" target="_blank" rel="noopener">自前ヒートマップ管理画面</a> で（「重ね表示」リンクでLPの上に熱が出ます）。<br>
@@ -129,6 +165,89 @@ function load(){
   });
 }
 load(); setInterval(load,20000);
+
+/* ===== ヒートマップ（lp-heatmap Worker /api/admin/heat から取得・Bearer認証） ===== */
+var HM_BASE='https://lp-heatmap.yokoya08.workers.dev';
+var HM_PAGES={b:'karaoke-b',c:'karaoke-c'};
+var hmW='sp', hmLast=null;
+
+function hmToken(){try{return localStorage.getItem('klp_hm_token')||''}catch(e){return ''}}
+
+function hmTokenBox(msg){
+  document.getElementById('hmctl').hidden=true;
+  document.getElementById('hmarea').innerHTML=
+    '<div class="tokbox">'
+    +(msg?'<p class="err">'+esc(msg)+'</p>':'')
+    +'<p>管理トークン（ADMIN_TOKEN）を入れると、ここにヒートマップが出ます。トークンはこのMacの <b>/Applications/AI/lp-heatmap/.dev.vars</b> に書いてあります。保存先はこのブラウザだけです。</p>'
+    +'<div class="row"><input id="hmtok" type="password" placeholder="ADMIN_TOKEN を貼り付け"><button id="hmtoksave">表示</button></div>'
+    +'</div>';
+  document.getElementById('hmtoksave').addEventListener('click',function(){
+    var v=(document.getElementById('hmtok').value||'').trim();
+    if(!v)return;
+    try{localStorage.setItem('klp_hm_token',v)}catch(e){}
+    hmLoad();
+  });
+}
+
+function fmtSec(ms){return ms==null?'—':(ms/1000).toFixed(1)+'秒'}
+function fmtPct(x){return x==null?'—':(x*100).toFixed(1)+'%'}
+
+function hmRender(){
+  if(!hmLast)return;
+  var html='<div class="hmcards">'+['b','c'].map(function(k){
+    var j=hmLast[k], m=META[k];
+    var head='<div class="pname"><span class="dot" style="background:'+m.color+'"></span>'+esc(m.name)+'</div><div class="psub">'+esc(HM_PAGES[k])+'</div>';
+    // サーバはデータの無いページ指定だと別ページの集計を返すため、一致しない応答は「まだ無い」扱いにする
+    if(!j||!j.ok||j.page!==HM_PAGES[k]||!j.report){
+      return '<div class="hmcard">'+head+'<p class="hmempty">まだデータがありません（訪問が入ると貯まります）。</p></div>';
+    }
+    var s=j.report[hmW]||{};
+    var rows=(s.sections||[]).map(function(x){
+      var r=x.reachRate==null?0:x.reachRate;
+      return '<div class="sline"><span class="sn">'+esc(x.sec)+'</span>'
+        +'<span class="sbar"><i style="width:'+Math.round(r*100)+'%;background:'+m.color+'"></i></span>'
+        +'<span class="sv">'+Math.round(r*100)+'%・'+fmtSec(x.dwellAvgMs)+'</span></div>';
+    }).join('')||'<p class="hmempty">この表示幅のデータはまだありません。</p>';
+    return '<div class="hmcard">'+head
+      +'<div class="hmmeta">'
+      +'<div class="num"><b>'+(s.views||0)+'</b><span>訪問</span></div>'
+      +'<div class="num"><b>'+fmtPct(s.ctaRate)+'</b><span>CTA反応率</span></div>'
+      +'<div class="num"><b>'+(s.deadTotal||0)+'</b><span>空クリック</span></div>'
+      +'<div class="num"><b>'+(s.rageTotal||0)+'</b><span>連打</span></div>'
+      +'</div>'
+      +rows
+      +'<div class="hmlinks">'
+      +(j.viewerUrl?'<a href="'+esc(j.viewerUrl)+'" target="_blank" rel="noopener">🔍 LPに重ねて見る</a>':'')
+      +'<a href="'+HM_BASE+'/admin" target="_blank" rel="noopener">詳細（管理画面）</a>'
+      +'</div></div>';
+  }).join('')+'</div>';
+  document.getElementById('hmarea').innerHTML=html;
+  document.getElementById('hmctl').hidden=false;
+}
+
+function hmLoad(){
+  var tok=hmToken();
+  if(!tok){hmTokenBox('');return;}
+  Promise.all(['b','c'].map(function(k){
+    return fetch(HM_BASE+'/api/admin/heat?page='+HM_PAGES[k],{headers:{'authorization':'Bearer '+tok},cache:'no-store'})
+      .then(function(r){ if(r.status===401){var e=new Error('auth');e.auth=1;throw e;} return r.json(); });
+  })).then(function(res){
+    hmLast={b:res[0],c:res[1]};
+    hmRender();
+  }).catch(function(e){
+    if(e&&e.auth){try{localStorage.removeItem('klp_hm_token')}catch(_){} hmTokenBox('トークンが違います。確認してもう一度入れてください。');}
+    else if(!hmLast){document.getElementById('hmarea').innerHTML='<p class="hmempty">ヒートマップの取得に失敗しました。しばらくして自動で再試行します。</p>';}
+  });
+}
+
+[].forEach.call(document.querySelectorAll('.wbtn'),function(b){
+  b.addEventListener('click',function(){
+    hmW=b.getAttribute('data-w');
+    [].forEach.call(document.querySelectorAll('.wbtn'),function(x){x.className='wbtn'+(x===b?' on':'')});
+    hmRender();
+  });
+});
+hmLoad(); setInterval(function(){ if(hmToken()) hmLoad(); },60000);
 
 document.getElementById('resetBtn').addEventListener('click',function(e){
   e.preventDefault();
