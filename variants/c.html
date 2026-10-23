@@ -68,7 +68,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--fb);font-w
 </head>
 <body>
 <main class="wrap">
-  <section class="fv">
+  <section class="fv" data-hm-sec="FV">
     <span class="badge">教室に通わず・自宅の練習だけで</span>
     <div class="ba">
       <div class="box before"><div class="lbl">BEFORE</div><div class="pt">72</div></div>
@@ -78,21 +78,21 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--fb);font-w
     <h1 class="h-main">やったのは、<br><mark>この練習だけ。</mark></h1>
     <p class="lead">精密採点を上げる練習を、無料のLINEで毎日ひとつずつ。まずは実際の歌を聴いてみて。</p>
     <div class="giftfv">🎁 登録した方に <b>90点マニュアル＋解説動画</b> を無料プレゼント</div>
-    <a class="cta" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">LINEで無料の練習を受け取る<span class="mini">登録0円・いつでもやめられます</span></a>
+    <a class="cta" data-hm-cta data-hm-label="FVボタン" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">LINEで無料の練習を受け取る<span class="mini">登録0円・いつでもやめられます</span></a>
   </section>
 
-  <section class="sec proof">
+  <section class="sec proof" data-hm-sec="採点画面">
     <h2 class="sec-ttl">実際の<span class="em">採点画面</span></h2>
     <img src="../img/20160313201353.jpg" alt="精密採点で95.308点が表示された採点画面" loading="lazy">
     <p class="cap">精密採点DX：ONE OK ROCK「Clock Strikes」95.308点（全国平均 81.725点）</p>
   </section>
 
-  <section class="sec">
+  <section class="sec" data-hm-sec="動画">
     <h2 class="sec-ttl">まずは<span class="em">聴いて</span>ください</h2>
     <div class="video"><iframe src="https://www.youtube.com/embed/8Lg-FmcRyz4" title="歌唱の実演" loading="lazy" allowfullscreen></iframe></div>
   </section>
 
-  <section class="sec">
+  <section class="sec" data-hm-sec="3つの軸">
     <h2 class="sec-ttl">無料LINEで配る<span class="em">3つの軸</span></h2>
     <ul class="axis">
       <li><div class="t"><span class="n">1</span>発声</div><div class="d">採点の土台。声の出し方を変えるだけで、点が安定して伸びます。</div></li>
@@ -101,11 +101,11 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--fb);font-w
     </ul>
   </section>
 
-  <section class="sec">
+  <section class="sec" data-hm-sec="理由">
     <div class="why">なぜ無料で、しかもLINEなのか。<br><b>上達は「続けられるか」で決まる</b>からです。1回のまとまった教材より、毎日1通ずつ届くほうが、無理なく積み上がります。</div>
   </section>
 
-  <section class="sec">
+  <section class="sec" data-hm-sec="プレゼント">
     <h2 class="sec-ttl">もらえる<span class="em">無料プレゼント</span></h2>
     <div class="gifts">
       <div class="gift"><img src="../img/20151213015832.jpg" alt="トレーニングメソッドのマニュアル表紙"><div class="gt"><span class="gn">01</span>90点超えの練習マニュアル（約100ページ・解説付き）</div></div>
@@ -115,28 +115,28 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--fb);font-w
     <p class="gift-note">※登録後、LINEですべて無料で受け取れます</p>
   </section>
 
-  <section class="sec proof">
+  <section class="sec proof" data-hm-sec="実績LINE">
     <h2 class="sec-ttl">受け取った人の<span class="em">やり取り</span></h2>
     <img src="../img/20170630203648.jpg" alt="受講者とのLINEのやり取り。90点台の採点結果の報告も写っている" loading="lazy">
     <p class="cap">掲載許可をいただいた実際のLINE。「90点取れました」の報告も届いています</p>
   </section>
 
-  <section class="sec" style="text-align:center">
-    <a class="cta" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">LINEで無料の練習を受け取る<span class="mini">登録0円・1分で完了</span></a>
+  <section class="sec" style="text-align:center" data-hm-sec="最終CTA">
+    <a class="cta" data-hm-cta data-hm-label="最終ボタン" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">LINEで無料の練習を受け取る<span class="mini">登録0円・1分で完了</span></a>
     <p class="assure">※点数は個人差があります（72→90は一例）</p>
   </section>
 
   <p class="foot">効果を保証するものではありません。<br>ボーカルプロデューサーよこ</p>
 </main>
-<div class="bar-fix"><a class="cta" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">▶ 無料で受け取る（LINE）</a></div>
+<div class="bar-fix" data-hm-click-sec="固定バー"><a class="cta" data-hm-cta data-hm-label="固定バー" href="https://lin.ee/OoEzEVC" target="_blank" rel="noopener">▶ 無料で受け取る（LINE）</a></div>
 <!-- MEASURE --><script>
 (function(){
   var V=(location.pathname.match(/([abc])\.html/)||[])[1];if(!V){try{V=localStorage.getItem('klp_ab')}catch(e){}}V=V||'x';
-  /* 管理者プレビュー除外: ?v= 付きで開いたブラウザは以後カウントしない（?track=on を付けると解除） */
-  var NT=false;
+  /* 管理者プレビュー除外: ?v= やヒートマップ重ね表示(#hmview)で開いたブラウザは以後カウントしない（?track=on で解除） */
+  var NT=false, HMV=/hmview=/.test(location.hash||'');
   try{
     if(/[?&]track=on/.test(location.search)){localStorage.removeItem('klp_notrack');}
-    else if(/[?&]v=[abc]/.test(location.search)){localStorage.setItem('klp_notrack','1');}
+    else if(/[?&]v=[abc]/.test(location.search)||HMV){localStorage.setItem('klp_notrack','1');}
     NT=(localStorage.getItem('klp_notrack')==='1');
   }catch(e){}
   function abHit(ev,pos){try{if(NT||['a','b','c'].indexOf(V)<0)return;var u='https://note-studio-tedi.onrender.com/ab/hit';var d=JSON.stringify({variant:V,event:ev,position:pos||''});if(navigator.sendBeacon){navigator.sendBeacon(u,d);}else{fetch(u,{method:'POST',body:d,keepalive:true,mode:'no-cors'});}}catch(e){}}
@@ -144,6 +144,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--fb);font-w
   abHit('lp_view');
   var cs=[].slice.call(document.querySelectorAll('a[href*="lin.ee"]'));
   cs.forEach(function(a,i){a.addEventListener('click',function(){var pos=a.closest('.bar-fix')?'fixed':(i===0?'fv':(i>=cs.length-2?'foot':'mid'));if(!NT){if(window.gtag)gtag('event','cta_click',{variant:V,position:pos});if(window.clarity)clarity('event','cta_'+V+'_'+pos);}abHit('cta_click',pos);});});
+  /* 自前ヒートマップ(lp-heatmap): 計測対象の訪問と #hmview= の重ね表示のときだけ読み込む */
+  if(!NT||HMV){var hs=document.createElement('script');hs.src='https://lp-heatmap.yokoya08.workers.dev/heat.js';hs.setAttribute('data-page','karaoke-c');hs.defer=true;document.body.appendChild(hs);}
 })();
 </script>
 </body>

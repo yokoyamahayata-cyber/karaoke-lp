@@ -27,9 +27,11 @@
 (function(){
   var KEY='klp_ab', POOL=['b','c'];                                 // Aは配信終了（?v=a でプレビューのみ可）
   var forced=(location.search.match(/[?&]v=([abc])/)||[])[1];      // ?v=b で特定パターンを強制（確認用）
+  var hm=((location.hash||'').match(/hmview=karaoke-([abc])\./)||[])[1];  // ヒートマップ重ね表示はトークンが指すパターンを開く
+  if(hm){ forced=hm; }
   try{
     if(/[?&]track=on/.test(location.search)){ localStorage.removeItem('klp_notrack'); }  // 計測除外の解除
-    else if(forced){ localStorage.setItem('klp_notrack','1'); }    // プレビューしたブラウザは以後計測から除外
+    else if(forced){ localStorage.setItem('klp_notrack','1'); }    // プレビュー/重ね表示したブラウザは以後計測から除外
   }catch(e){}
   var v;
   try{ v=localStorage.getItem(KEY); }catch(e){}
